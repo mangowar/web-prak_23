@@ -23,8 +23,10 @@ public class themes {
     @NonNull
     private String theme_name;
 
-    @Column(name = "theme_creator", nullable = false)
-    private int theme_creator;
+//    @Column(name = "theme_creator", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "theme_creator", nullable = false)
+    private person theme_creator;
 
     @Override
     public boolean equals(Object o) {
@@ -35,4 +37,4 @@ public class themes {
                 && theme_name.equals(other.theme_name)
                 && Objects.equals(theme_creator, other.theme_creator);
     }
-}
+};
