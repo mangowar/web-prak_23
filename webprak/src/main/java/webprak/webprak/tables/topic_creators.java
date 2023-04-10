@@ -10,7 +10,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-public class topic_creators {
+public class topic_creators implements TableEntity<Long>{
     @JoinColumn(name = "person_id", nullable = false)
     @NonNull
     @ManyToOne
@@ -23,6 +23,11 @@ public class topic_creators {
     @Id
     private topics topic_id;
 
+    @Column(name = "id", nullable = false)
+    @NonNull
+    @Id
+    private Long id;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -30,5 +35,15 @@ public class topic_creators {
         topic_creators other = (topic_creators) o;
         return Objects.equals(theme_id, other.theme_id)
                 && Objects.equals(topic_id, other.topic_id);
+    }
+
+    @Override
+    public Long getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(Long ID) {
+        this.id = ID;
     }
 }

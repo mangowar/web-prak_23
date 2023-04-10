@@ -2,6 +2,7 @@ package webprak.webprak.tables;
 
 import lombok.*;
 import jakarta.persistence.*;
+import org.yaml.snakeyaml.tokens.Token;
 
 import java.sql.Date;
 import java.util.Objects;
@@ -11,14 +12,14 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 
-public class person {
+public class person implements TableEntity <Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "pesson_id")
-    private int person_id;
+    private Long person_id;
 
     @Column(nullable = false, name = "registration_date")
     @NonNull
@@ -50,5 +51,15 @@ public class person {
                 && role.equals(other.role)
                 && Objects.equals(profile_picture, other.profile_picture)
                 && password.equals(other.password);
+    }
+
+    @Override
+    public Long getId() {
+        return this.person_id;
+    }
+
+    @Override
+    public void setId(Long ID) {
+        this.person_id = ID;
     }
 };

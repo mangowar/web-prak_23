@@ -10,11 +10,11 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-public class topics {
+public class topics implements TableEntity<Long>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "topic_id", nullable = false)
-    private int topic_id;
+    private Long topic_id;
 
     @Column(name = "topic_name", nullable = false)
     @NonNull
@@ -33,5 +33,15 @@ public class topics {
         return Objects.equals(theme_id, other.theme_id)
                 && topic_name.equals(other.topic_name)
                 && Objects.equals(topic_id, other.topic_id);
+    }
+
+    @Override
+    public Long getId() {
+        return this.topic_id;
+    }
+
+    @Override
+    public void setId(Long ID) {
+        this.topic_id = ID;
     }
 };

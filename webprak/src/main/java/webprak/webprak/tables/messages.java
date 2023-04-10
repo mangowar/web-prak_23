@@ -10,11 +10,11 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-public class messages {
+public class messages implements TableEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "message_id")
-    private int message_id;
+    private Long message_id;
 
     @OneToOne
     @JoinColumn(name = "topic_id", nullable = false)
@@ -46,5 +46,15 @@ public class messages {
                 && date.equals(other.date)
                 && Objects.equals(files, other.files)
                 && message_text.equals(other.message_text);
+    }
+
+    @Override
+    public Long getId() {
+        return this.message_id;
+    }
+
+    @Override
+    public void setId(Long ID) {
+        this.message_id = ID;
     }
 }
