@@ -1,13 +1,18 @@
 package webprak.webprak;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+import webprak.webprak.DAO.impl.PersonDAOimpl;
 @SpringBootApplication
 public class WebprakApplication {
-
 	public static void main(String[] args) {
-		SpringApplication.run(WebprakApplication.class, args);
+		try{
+			SpringApplication.run(WebprakApplication.class, args);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }

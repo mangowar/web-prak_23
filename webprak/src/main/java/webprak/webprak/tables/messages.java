@@ -1,6 +1,6 @@
 package webprak.webprak.tables;
 import lombok.*;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.sql.Date;
 import java.util.Objects;
@@ -32,8 +32,6 @@ public class messages implements TableEntity<Long> {
     @NonNull
     private String message_text;
 
-    @Column(name = "files", nullable = false)
-    private int files;
 
     @Override
     public boolean equals(Object o) {
@@ -44,7 +42,6 @@ public class messages implements TableEntity<Long> {
                 && Objects.equals(topic_id, other.topic_id)
                 && Objects.equals(person_id, other.person_id)
                 && date.equals(other.date)
-                && Objects.equals(files, other.files)
                 && message_text.equals(other.message_text);
     }
 

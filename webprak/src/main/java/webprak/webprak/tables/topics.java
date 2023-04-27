@@ -1,16 +1,21 @@
 package webprak.webprak.tables;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "topics")
 @Getter
 @Setter
 @ToString
-public class topics implements TableEntity<Long>{
+public class topics implements TableEntity<Long> {
+
+    @ManyToMany(mappedBy = "topicsSet")
+    private Set<person> personSet;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "topic_id", nullable = false)
@@ -20,9 +25,8 @@ public class topics implements TableEntity<Long>{
     @NonNull
     private String topic_name;
 
+    @ManyToOne(targetEntity = themes.class)
     @JoinColumn(name = "theme_id", nullable = false)
-    @NonNull
-    @ManyToOne
     private themes theme_id;
 
     @Override
@@ -44,4 +48,6 @@ public class topics implements TableEntity<Long>{
     public void setId(Long ID) {
         this.topic_id = ID;
     }
+
+
 };

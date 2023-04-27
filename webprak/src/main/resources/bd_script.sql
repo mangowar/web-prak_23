@@ -1,6 +1,6 @@
 CREATE TABLE person (
   "person_id" serial,
-  "registration_date" date,
+  "registration_date" date not null,
   "role" text not null ,
   "login" text not null ,
   "password" text not null ,
@@ -34,6 +34,14 @@ CREATE TABLE messages (
   "files" int
 );
 
+insert into messages (topic_id, person_id, date, message_text)
+values (1, 19, current_timestamp, 'Hello world'),
+       (1, 17, current_timestamp, 'Hello world2'),
+       (1, 20, current_timestamp, 'Hello world3');
+select * from messages;
+
+insert into messages (topic_id, person_id, date, message_text)
+values (2, 17, current_timestamp, 'Not hello world');
 
 
 

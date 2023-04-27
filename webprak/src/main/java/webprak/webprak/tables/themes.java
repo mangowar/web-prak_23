@@ -1,5 +1,5 @@
 package webprak.webprak.tables;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
@@ -23,7 +23,6 @@ public class themes implements TableEntity<Long>{
     @NonNull
     private String theme_name;
 
-//    @Column(name = "theme_creator", nullable = false)
     @ManyToOne
     @JoinColumn(name = "theme_creator", nullable = false)
     private person theme_creator;
@@ -47,4 +46,6 @@ public class themes implements TableEntity<Long>{
     public void setId(Long ID) {
         this.theme_id = ID;
     }
+
+
 };

@@ -1,4 +1,5 @@
 package webprak.webprak.DAO.impl;
+import lombok.NonNull;
 import webprak.webprak.DAO.TableDAO;
 import webprak.webprak.tables.TableEntity;
 
@@ -8,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 
-import jakarta.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaQuery;
+
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -23,7 +25,7 @@ public abstract class TableDAOimpl<T extends TableEntity<ID>, ID extends Seriali
     }
 
     @Autowired
-    public void setSessionFactory(LocalSessionFactoryBean sessionFactory) {
+    public void setSessionFactory(@NonNull LocalSessionFactoryBean sessionFactory) {
         this.sessionFactory = sessionFactory.getObject();
     }
 

@@ -1,11 +1,13 @@
 package webprak.webprak.tables;
 
 import lombok.*;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import org.yaml.snakeyaml.tokens.Token;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "person")
@@ -16,9 +18,18 @@ import java.util.Objects;
 @AllArgsConstructor
 
 public class person implements TableEntity <Long> {
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "topic_creators",
+            joinColumns = { @JoinColumn(name = "person_id") },
+            inverseJoinColumns = { @JoinColumn(name = "topic_id") }
+    )
+    Set<topics> topicsSet = new HashSet<>();
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, name = "pesson_id")
+    @Column(nullable = false, name = "person_id")
     private Long person_id;
 
     @Column(nullable = false, name = "registration_date")
@@ -37,8 +48,8 @@ public class person implements TableEntity <Long> {
     @NonNull
     private String password;
 
-    @Column(nullable = true, name = "profile_picture")
-    private int profile_picture;
+//    @Column(nullable = true, name = "profile_picture")
+//    private int profile_picture;
 
     @Override
     public boolean equals(Object o) {
@@ -49,7 +60,7 @@ public class person implements TableEntity <Long> {
                 && login.equals(other.login)
                 && registration_date.equals(other.registration_date)
                 && role.equals(other.role)
-                && Objects.equals(profile_picture, other.profile_picture)
+//                && Objects.equals(profile_picture, other.profile_picture)
                 && password.equals(other.password);
     }
 
@@ -61,5 +72,9 @@ public class person implements TableEntity <Long> {
     @Override
     public void setId(Long ID) {
         this.person_id = ID;
+    }
+
+    public void setRegistration_date(@NonNull Date date) {
+        this.registration_date = date;
     }
 };
