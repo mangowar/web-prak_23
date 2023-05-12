@@ -39,7 +39,8 @@ public class TopicDAOimpl extends TableDAOimpl<topics, Long> implements TopicDAO
 
     public List<Long> getMembers(topics t){
         java.util.List<messages> q = null;
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession())
+        {
             Query<messages> query = session
                     .createQuery("SELECT ms FROM messages ms WHERE ms.topic_id = :ident", messages.class)
                     .setParameter("ident", t);
@@ -48,8 +49,21 @@ public class TopicDAOimpl extends TableDAOimpl<topics, Long> implements TopicDAO
             for(messages q1: q) {
                 result.add(q1.getPerson_id().getPerson_id());
             }
-//            return query.getResultList().size() == 0 ? null : query.getResultList();
             return result;
         }
+    }
+
+    public topics getLatest(){
+        topics latest = null;
+        try (Session session = sessionFactory.openSession())
+        {
+            Query<topics> query = session.createQuery("SELECT t from topics t order by t.topic_id desc", topics.class);
+            List<topics> l = query.getResultList();
+            latest = l.get(0);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return latest;
     }
 }
