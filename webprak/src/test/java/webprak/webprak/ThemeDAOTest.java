@@ -24,11 +24,6 @@ public class ThemeDAOTest {
     void addThemeTest(){
         themes t = themeDAO.addTheme("theme1", 17L);
         assertNotNull(themeDAO.getById(t.getId()));
-        t.setId(1000L);
-        t.getTheme_name();
-        t.getTheme_id();
-        t.getClass();
-        t.getTheme_creator();
     }
 
     @Test
