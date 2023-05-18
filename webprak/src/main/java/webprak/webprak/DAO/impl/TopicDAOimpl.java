@@ -66,4 +66,34 @@ public class TopicDAOimpl extends TableDAOimpl<topics, Long> implements TopicDAO
         }
         return latest;
     }
+
+    public List<topics> searchTopic(String name){
+        List<topics> ls = null;
+        try (Session session = sessionFactory.openSession())
+        {
+            String templ = "%"+name+"%";
+            Query<topics> query = session
+                    .createQuery("SELECT t from topics t where t.topic_name like :n", topics.class)
+                    .setParameter("n", templ);
+            ls = query.getResultList();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return ls;
+    }
+    public List<messages> getMessages(topics topic){
+        List<messages> ls = null;
+        try (Session session = sessionFactory.openSession())
+        {
+            Query<messages> query = session
+                    .createQuery("SELECT m from messages m where m.topic_id = :n order by m.message_id desc", messages.class)
+                    .setParameter("n", topic);
+            ls = query.getResultList();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return ls;
+    }
 }
